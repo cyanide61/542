@@ -1,0 +1,5 @@
+<script type="text/ng-template" id="folderHierarchy">
+    <p class="hLevel{{folder.level}}">{{folder.name}} </p>
+    <p ng-repeat="target in folder.targets" class="hLevel{{1 * folder.level + 1}}"><a href="#" ng-click="setCurrentMotorBikeId(target.targetId)">{{target.targetName}}</a> </p>
+    <div ng-repeat="folder in folder.folders" ng-include="'folderHierarchy'"></div>
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="angularApp" ng-controller="theInfoBase">
+
+<head>
+  <title>Motor Bikes</title>
+  <meta charset="utf-8"></meta>
+  <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+  <link href="css/motorbike.css" rel="stylesheet"></link>
+</head>
+
+<body>
+<p>Set currentMotorBikeId to:<input type='text""' ng-model="currentMotorBikeId"/></p>
+<div class="container motorBikeOuterContainer">
+    <div class="row-fluid">
+      <div class="col-sm-2 localNavArea">
+        <p>Local Nav Area</p>
+      </div>
+      <div class="col-sm-10 itemArea">
+         <div ng-include="'motorBikeItemFullViews'" class= "motorBikeItemFullViews"></div>      
+      </div>
+    </div>
+</div>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/motorBikeAngularApp.js"></script>
+<script src="json/motorBikeFullViews.json"></script>
+ 
+<script type="text/ng-template" id="motorBikeItemFullViews">
+  <div class="fullViewDiv" ng-repeat="motorBike in motorBikes" ng-show="currentMotorBikeId===motorBike.id">
+     <h1>{{motorBike.bikeName}}</h1>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-8">
+                <div class="imageContainer"><img class="img-responsive center-block" ng-src="images/bikes/{{motorBike.imgFilePath}}"></img></div>
+            </div>
+            <div class="col-sm-4">
+              <p><b>Top Speed</b>: {{motorBike.topSpeed}}</p>
+              <p><b>Acceleration</b>: {{motorBike.acceleration}}</p>
+              <p><b>WheelBase</b>: {{motorBike.wheelBase}}</p>
+              <p><b>Fuel Economy</b>: {{motorBike.fuelEconomy}}</p>
+              <p><b>Tyre</b>: {{motorBike.tyreCompanyName}}</p>
+              <p><b>Tyre Size</b>: {{motorBike.tyreSize}}</p>
+              <p><b>Transmission Type</b>: {{motorBike.name}}</p>
+            </div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-sm-8">
+               <div ng-bind-html="motorBike.bikeDescription"></div>
+            </div>
+            <div class="col-sm-4">
+              <p>If you like {{motorBike.bikeNames}}, checkout:</p>
+                  <ul>
+                    <li>Yamaha Fazer</li>
+                    <li>Yamaha YZF R15</li>
+                  </ul>
+            </div>
+          </div>
+        </div>
+  </div>
+</script>
+</body>
+
+</html>

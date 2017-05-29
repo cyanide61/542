@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="angularApp" ng-controller="theInfoBase">
+
+<head>
+  <title>Motor Bikes</title>
+  <meta charset="utf-8"></meta>
+  <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+  <link href="css/motorbike.css" rel="stylesheet"></link>
+</head>
+
+<body>
+<p>Set currentMotorBikeId to:<input type='text""' ng-model="currentMotorBikeId"/></p>
+<div class="container motorBikeOuterContainer">
+    <div class="row-fluid">
+      <div class="col-sm-2 localNavArea">
+        <p class="navHeader">MotorBikes by Manufacturing Locations</p>
+        <div ng-repeat="folder in folders" ng-include="'folderHierarchy'"></div>
+        <hr>
+        <p class="navHeader">MotorBikes by Transmission</p>
+        <div ng-include="'motorbikeIndex'"></div>
+      </div>
+      <div class="col-sm-10 itemArea">
+         <div ng-include="'motorBikeItemFullViews'" class= "motorBikeItemFullViews"></div>      
+      </div>
+    </div>
+</div>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-sanitize.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/motorBikeAngularApp.js"></script>
+<script src="json/motorBikeFullViews.json"></script>
+<script src="json/motorbikeTransmissionIndex.json"></script>
+<script src="json/motorBikeHierarchy.json"></script>
+
+
+ 
+<script type="text/ng-template" id="motorBikeItemFullViews">
+  <div class="fullViewDiv" ng-repeat="motorBike in motorBikes" ng-show="currentMotorBikeId===motorBike.id">
+     <h1>{{motorBike.bikeName}}</h1>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-8">
+                <div class="imageContainer"><img class="img-responsive center-block" ng-src="images/bikes/{{motorBike.imgFilePath}}"></img></div>
+            </div>
+            <div class="col-sm-4">
+              <p><b>Top Speed</b>: {{motorBike.topSpeed}}</p>
+              <p><b>Acceleration</b>: {{motorBike.acceleration}}</p>
+              <p><b>WheelBase</b>: {{motorBike.wheelBase}}</p>
+              <p><b>Fuel Economy</b>: {{motorBike.fuelEconomy}}</p>
+              <p><b>Tyre</b>: {{motorBike.tyreCompanyName}}</p>
+              <p><b>Tyre Size</b>: {{motorBike.tyreSize}}</p>
+            </div>
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-sm-8">
+               <div ng-bind-html="motorBike.bikeDescription"></div>
+            </div>
+            <div class="col-sm-4">
+              <p>If you like {{motorBike.bikeNames}}, checkout:</p>
+                  <ul>
+                    <li>Yamaha Fazer</li>
+                    <li>Yamaha YZF R15</li>
+                  </ul>
+            </div>
+          </div>
+        </div>
+  </div>
+</script>
+  <script type="text/ng-template" id="motorbikeIndex">
+    <div ng-repeat="transmission in transmissions">
+      <p class="indexTerm">{{transmission.transmissionName}}</p>
+      <p class="indexItemRef" ng-repeat="motorbike in transmission.motorbikes"><a href="#" ng-click="setCurrentMotorBikeId(motorbike.motorbikeId)">{{motorbike.bikeName}}</a></p>
+    </div>
+  </script>
+
+  <script type="text/ng-template" id="folderHierarchy">
+    <p class="hLevel{{folder.level}}">{{folder.name}} </p>
+    <p ng-repeat="target in folder.targets" class="hLevel{{1 * folder.level + 1}}"><a href="#" ng-click="setCurrentMotorBikeId(target.targetId)">{{target.targetName}}</a> </p>
+    <div ng-repeat="folder in folder.folders" ng-include="'folderHierarchy'"></div>
+</script>
+
+</body>
+
+</html>

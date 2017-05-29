@@ -1,0 +1,6 @@
+  <script type="text/ng-template" id="transmissionIndex">
+    <div ng-repeat="transmission in transmissions">
+      <p class="indexTerm">{{transmission.transmissionName}}</p>
+      <p class="indexItemRef" ng-repeat="motorbike in transmission.motorbikes"><a href="#" ng-click="setCurrentMotorbikeId(motorbike.motorbikeId)">{{motorbike.bikeName}}</a></p>
+    </div>
+  </script>
